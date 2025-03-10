@@ -131,4 +131,14 @@ describe('Authorization Middleware Tests', () => {
         expect(next).not.toHaveBeenCalled();
       });
     
+      it('should allow same user access when allowSameUser is true', () => {
+        req.params = { id: 'test-uid' };
+        res.locals = { role: 'user', uid: 'test-uid' };
+    
+        const middleware = isAuthorized({ hasRole: ['manager'], allowSameUser: true });
+    
+        middleware(req as Request, res as Response, next);
+    
+        expect(next).toHaveBeenCalled();
+      });
 });
