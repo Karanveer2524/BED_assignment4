@@ -7,7 +7,6 @@ import setupSwagger from "../config/swagger";
 import itemRoutes from "./api/v1/routes/itemRoutes";
 import userRoutes from "./api/v1/routes/userRoutes";
 import adminRoutes from "./api/v1/routes/adminRoutes";
-import errorHandler from "./api/v1/middleware/errorHandler";
 
 // initialize the express application
 const app: Express = express();
@@ -63,7 +62,6 @@ app.use("/api/v1/items", itemRoutes);
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/admin", adminRoutes);
 
-app.use(errorHandler);
 
 // export app and server for testing
 export default app;
