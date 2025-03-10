@@ -26,7 +26,7 @@ jest.mock('../config/firebaseAdmin', () => {
     };
 });
 
-import * as mockedAdmin from '../config/firebaseAdmin';
+import * as mockedAdmin from '../config/firebaseConfig';
 
 describe('Authentication Middleware Tests', () => {
     let verifyIdTokenMock: jest.Mock;
