@@ -1,7 +1,7 @@
 // External library imports
 import { Request, Response, NextFunction } from "express";
 import { DecodedIdToken } from "firebase-admin/auth";
-import { AuthenticationError } from "../errors/errors";
+import { AuthenticationError } from "";
 import { getErrorMessage, getErrorCode } from "../utils/errorUtils";
 
 // Internal module imports
