@@ -11,3 +11,17 @@ type MockedAdminModule = {
     };
     verifyIdTokenMock: jest.Mock;
 };
+
+jest.mock('../config/firebaseAdmin', () => {
+    console.log('Firebase Admin mock executed!');
+    const originalModule = jest.requireActual('../config/firebaseAdmin');
+    const verifyIdTokenMock = jest.fn();
+    return {
+      ...originalModule,
+      auth: () => ({
+        verifyIdToken: verifyIdTokenMock,
+        getUser: jest.fn(),
+      }),
+      verifyIdTokenMock: verifyIdTokenMock,
+    };
+});
