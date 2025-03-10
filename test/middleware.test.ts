@@ -111,4 +111,24 @@ describe('Authorization Middleware Tests', () => {
     
         expect(next).toHaveBeenCalled();
     });
+
+    it('should throw AuthorizationError if user has insufficient role', () => {
+        res.locals = { role: 'user', uid: 'test-uid' };
+        const middleware = isAuthorized({ hasRole: ['manager'] });
+    
+        expect(() => middleware(req as Request, res as Response, next)).toThrow(
+          new AuthorizationError('Forbidden: Insufficient role', 'INSUFFICIENT_ROLE')
+        );
+        expect(next).not.toHaveBeenCalled();
+      });
+    
+      it('should throw AuthorizationError if role is missing', () => {
+        const middleware = isAuthorized({ hasRole: ['manager'] });
+    
+        expect(() => middleware(req as Request, res as Response, next)).toThrow(
+          new AuthorizationError('Forbidden: No role found', 'ROLE_NOT_FOUND')
+        );
+        expect(next).not.toHaveBeenCalled();
+      });
+    
 });
