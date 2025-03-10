@@ -91,3 +91,24 @@ describe('Authentication Middleware Tests', () => {
       expect(next).toHaveBeenCalled();
     });
 });
+
+describe('Authorization Middleware Tests', () => {
+    let req: Partial<Request>;
+    let res: Partial<Response>;
+    let next: jest.Mock;
+
+    beforeEach(() => {
+        req = { params: {} };
+        res = { locals: { uid: 'test-uid' } };
+        next = jest.fn();
+    });
+
+    it('should pass when user has the required role', () => {
+        res.locals = { role: 'manager', uid: 'test-uid' };
+        const middleware = isAuthorized({ hasRole: ['manager'] });
+    
+        middleware(req as Request, res as Response, next);
+    
+        expect(next).toHaveBeenCalled();
+    });
+});
