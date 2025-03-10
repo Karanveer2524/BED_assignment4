@@ -7,7 +7,6 @@
  */
 import express, { Router } from "express";
 import * as itemController from "../controllers/itemController";
-import { validateRequest } from "../middleware/validate";
 import { itemSchema, deleteItemSchema } from "../validation/itemValidation";
 import authenticate from "../middleware/authenticate";
 import isAuthorized from "../middleware/authorize";
@@ -31,7 +30,6 @@ router.post(
     "/",
     authenticate,
     isAuthorized({ hasRole: ["admin", "manager"] }),
-    validateRequest(itemSchema),
     itemController.createItem
 );
 
@@ -70,7 +68,6 @@ router.put(
     "/:id",
     authenticate,
     isAuthorized({ hasRole: ["admin", "manager"], allowSameUser: true }),
-    validateRequest(itemSchema),
     itemController.updateItem
 );
 
@@ -82,7 +79,6 @@ router.delete(
     "/:id",
     authenticate,
     isAuthorized({ hasRole: ["admin", "manager"] }),
-    validateRequest(deleteItemSchema),
     itemController.deleteItem
 );
 
